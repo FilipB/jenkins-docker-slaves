@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: jenkins-slave-builder
+metadata:
+  name: jenkins-slave-python-selenium-builder
+  annotations:
+    description: Template to build Jenkins slave with python and selenium binding
+    iconClass: icon-jenkins
+    tags: jenkins
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      role: jenkins-slave-python-selenium
+    name: jenkins-slave-python-selenium
+  spec: {}
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: jenkins-slave-python-selenium
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: jenkins-slave-python-selenium:latest
+    source:
+      contextDir: ${CONTEXTDIR}
+      git:
+        ref: ${REPO_REF}
+        uri: ${REPO_URL}
+      type: Git
+    strategy:
+      dockerStrategy:
+      type: Docker
+    triggers:
+    - type: ConfigChange
+parameters:
+- description: Git repository with Dockerfile and slave entrypoint.
+  displayName: Repository URL
+  name: REPO_URL
+  value: https://github.com/FilipB/jenkins-docker-slaves.git
+- description: The sub-directory inside the repository.
+  displayName: Context Directory
+  name: CONTEXTDIR
+  value: jenkins-slave-python-selenium
+- description: The git ref or tag to use for customization.
+  displayName: Git Reference
+  name: REPO_REF
+  value: master
