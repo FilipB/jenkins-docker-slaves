@@ -14,6 +14,7 @@ RUN yum install -y npm docker && yum clean all && \
   echo "export PATH=$GOROOT/bin:$PATH" >> $HOME/.bash_profile && \
   rm -rf ${GO_TAR_NAME}
 
+RUN ls -al $HOME && cat $HOME/.bash_profile
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
