@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Added by Dockerfile" >> $HOME/.bashrc
+echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
+echo "export PATH=$GOROOT/bin:$PATH" >> $HOME/.bashrc
