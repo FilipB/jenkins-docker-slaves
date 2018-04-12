@@ -5,7 +5,7 @@ ENV GO_TAR_URL=https://dl.google.com/go/go1.10.linux-amd64.tar.gz \
     GO_TAR_NAME=go1.10.linux-amd64.tar.gz
 
 # Install python and selenium binding
-RUN yum install -y npm docker sudo make && yum clean all && \
+RUN yum install -y npm docker sudo make sshpass && yum clean all && \
   curl -LOk ${GO_TAR_URL} && \
   tar -xzf ${GO_TAR_NAME} && \
   mv go /usr/local && \
